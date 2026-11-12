@@ -193,6 +193,7 @@ GameObject:
   - component: {fileID: 6894979521318456901}
   - component: {fileID: 1870679391148259636}
   - component: {fileID: 6747680702707869578}
+  - component: {fileID: 6075945305998584958}
   m_Layer: 0
   m_Name: PT_Pine_Tree_03_green
   m_TagString: Untagged
@@ -268,6 +269,20 @@ MeshCollider:
   m_Convex: 0
   m_CookingOptions: 30
   m_Mesh: {fileID: 6448605334951534252, guid: 021e9eaa88033da4c94bcdeddffe6562, type: 3}
+--- !u!114 &6075945305998584958
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6117071349010126079}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b146d0659038eee45898726483e22775, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::LargeObject
+  destroyScore: 0
+  destroyedPrefab: {fileID: 4928616408704863665, guid: c2d163620a521644c966c85704654d26, type: 3}
 --- !u!1 &8169898343365794049
 GameObject:
   m_ObjectHideFlags: 0

@@ -10,7 +10,9 @@ GameObject:
   m_Component:
   - component: {fileID: 2966750739439028892}
   - component: {fileID: 8031637485679984109}
-  - component: {fileID: 2778608911837758812}
+  - component: {fileID: 4223268623844681933}
+  - component: {fileID: 7959702513108362851}
+  - component: {fileID: 6090657776591867000}
   m_Layer: 0
   m_Name: PT_Fruit_Tree_01_pears
   m_TagString: Untagged
@@ -64,7 +66,7 @@ LODGroup:
     - renderer: {fileID: 8580298009914301585}
   m_Enabled: 1
   m_GlobalIlluminationLOD: 0
---- !u!64 &2778608911837758812
+--- !u!64 &4223268623844681933
 MeshCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -86,6 +88,41 @@ MeshCollider:
   m_Convex: 0
   m_CookingOptions: 30
   m_Mesh: {fileID: 5362752393953957539, guid: 3ebf65d3a6489594ca09a35d85d43b0a, type: 3}
+--- !u!114 &7959702513108362851
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2479184009378418726}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b146d0659038eee45898726483e22775, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::LargeObject
+  destroyScore: 0
+  destroyedPrefab: {fileID: 873261478477796481, guid: 38a10d9b0b3419a45ab423d238c0f237, type: 3}
+--- !u!135 &6090657776591867000
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2479184009378418726}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Radius: 0.6
+  m_Center: {x: -0.029999971, y: 0, z: -0.05750817}
 --- !u!1 &2613454675235345673
 GameObject:
   m_ObjectHideFlags: 0

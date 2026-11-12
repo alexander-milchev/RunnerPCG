@@ -1304,6 +1304,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: VFXManager
       objectReference: {fileID: 0}
+    - target: {fileID: 8596281206971469303, guid: 56e1ba432bfe9a2af894ab7549b2eb15, type: 3}
+      propertyPath: destroyParticles
+      value: 
+      objectReference: {fileID: 4593184484909914550, guid: 5e4fea70679934d4f8861198502fad13, type: 3}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []

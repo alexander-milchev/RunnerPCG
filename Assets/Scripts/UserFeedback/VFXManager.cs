@@ -5,6 +5,7 @@ public class VFXManager : MonoBehaviour
 {
     [SerializeField] private ParticleSystem boostParticles;
     [SerializeField] private ParticleSystem jumpParticles;
+    [SerializeField] private ParticleSystem destroyParticles;
 
     private RunningCharacterController player;
     private Rigidbody rb;
@@ -29,7 +30,6 @@ public class VFXManager : MonoBehaviour
         // Debug.Log("Done for " + this.name);
     }
 
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
         player = GameObject.FindWithTag("Player").GetComponent<RunningCharacterController>();
@@ -37,12 +37,6 @@ public class VFXManager : MonoBehaviour
         vFXSpawnPoint = player.transform.Find("VFXSpawnPoint");
 
         SubscribeVFXEvents();
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
     }
 
     private void SubscribeVFXEvents()
@@ -72,5 +66,10 @@ public class VFXManager : MonoBehaviour
         Time.timeScale = 0.2f;
         yield return new WaitForSeconds(0.1f);
         Time.timeScale = 1f;
+    }
+
+    public void SpawnDestroyParticles(Transform objectTransform)
+    {
+        ParticleSystem ps = Instantiate(destroyParticles, objectTransform.position, objectTransform.rotation);
     }
 }

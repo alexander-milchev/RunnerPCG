@@ -165,7 +165,8 @@ GameObject:
   - component: {fileID: 5280803450886040975}
   - component: {fileID: 475127693172060145}
   - component: {fileID: 2030511849321712008}
-  - component: {fileID: 4066873713378944602}
+  - component: {fileID: 7454593918529293693}
+  - component: {fileID: 7186077373134702960}
   m_Layer: 0
   m_Name: PT_Generic_Shrub_01_green_LOD0
   m_TagString: Untagged
@@ -246,8 +247,21 @@ MeshRenderer:
   m_SortingOrder: 0
   m_MaskInteraction: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!64 &4066873713378944602
-MeshCollider:
+--- !u!114 &7454593918529293693
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8255632427206956809}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 43e1dc73ce6e57d48a784299d4a7f8b0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::SmallObject
+  destroyScore: 0
+--- !u!135 &7186077373134702960
+SphereCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -264,10 +278,9 @@ MeshCollider:
   m_IsTrigger: 0
   m_ProvidesContacts: 0
   m_Enabled: 1
-  serializedVersion: 5
-  m_Convex: 0
-  m_CookingOptions: 30
-  m_Mesh: {fileID: 3021784043734384666, guid: 0101712be5ca1c7449afe15d548c8817, type: 3}
+  serializedVersion: 3
+  m_Radius: 0.75
+  m_Center: {x: 0, y: 0.34, z: 0}
 --- !u!1 &8262811030362704149
 GameObject:
   m_ObjectHideFlags: 0

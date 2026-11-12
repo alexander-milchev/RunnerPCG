@@ -101,7 +101,9 @@ GameObject:
   m_Component:
   - component: {fileID: 7929462325123785727}
   - component: {fileID: 2905107983372784782}
-  - component: {fileID: 8640861929270611525}
+  - component: {fileID: 2756612839143908961}
+  - component: {fileID: 6811955283244137860}
+  - component: {fileID: 8156123186486478809}
   m_Layer: 0
   m_Name: PT_Fruit_Tree_01_plums
   m_TagString: Untagged
@@ -155,7 +157,7 @@ LODGroup:
     - renderer: {fileID: 6140726643089354878}
   m_Enabled: 1
   m_GlobalIlluminationLOD: 0
---- !u!64 &8640861929270611525
+--- !u!64 &2756612839143908961
 MeshCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -177,6 +179,41 @@ MeshCollider:
   m_Convex: 0
   m_CookingOptions: 30
   m_Mesh: {fileID: 5362752393953957539, guid: 3ebf65d3a6489594ca09a35d85d43b0a, type: 3}
+--- !u!114 &6811955283244137860
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7296054959696050501}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b146d0659038eee45898726483e22775, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::LargeObject
+  destroyScore: 0
+  destroyedPrefab: {fileID: 873261478477796481, guid: 38a10d9b0b3419a45ab423d238c0f237, type: 3}
+--- !u!135 &8156123186486478809
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7296054959696050501}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Radius: 0.6
+  m_Center: {x: -0.029999971, y: 0, z: -0.05750817}
 --- !u!1 &7389196695646074697
 GameObject:
   m_ObjectHideFlags: 0
