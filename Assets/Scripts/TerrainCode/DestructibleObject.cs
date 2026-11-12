@@ -3,11 +3,8 @@ using UnityEngine;
 
 public abstract class DestructibleObject : MonoBehaviour
 {
-    [SerializeField] private int destroyScore;
-    public virtual void Start()
-    {
-        
-    }
+    [SerializeField] private uint destroyScore;
+    public virtual void Start(){}
 
     public virtual void OnCollisionEnter(Collision collision)
     {
@@ -25,6 +22,7 @@ public abstract class DestructibleObject : MonoBehaviour
     public virtual void Explode(Transform transform)
     {
         VFXManager.instance.SpawnDestroyParticles(transform);
+        ScoreManager.instance.AddScore(destroyScore);
         Destroy(this.gameObject);
     }
 }

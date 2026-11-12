@@ -281,7 +281,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b146d0659038eee45898726483e22775, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::LargeObject
-  destroyScore: 0
+  destroyScore: 25
   destroyedPrefab: {fileID: 4928616408704863665, guid: c2d163620a521644c966c85704654d26, type: 3}
 --- !u!1 &8169898343365794049
 GameObject:

@@ -282,7 +282,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b146d0659038eee45898726483e22775, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::LargeObject
-  destroyScore: 0
+  destroyScore: 25
   destroyedPrefab: {fileID: 873261478477796481, guid: 38a10d9b0b3419a45ab423d238c0f237, type: 3}
 --- !u!135 &8824845962779232593
 SphereCollider:
