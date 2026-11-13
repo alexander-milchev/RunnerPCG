@@ -10,6 +10,9 @@ public class InputManager : MonoBehaviour
     public event Action<Vector2> HandleLook;
     public event Action<bool> HandleDescend;
     public event Action HandleJump;
+    public event Action HandleAim;
+    public event Action HandleShoot;
+    public event Action CancelAim;
 
     public static InputManager instance;
 
@@ -68,6 +71,26 @@ public class InputManager : MonoBehaviour
         if(context.performed)
         {
             HandleJump?.Invoke();
+        }
+    }
+
+    public void OnAim(InputAction.CallbackContext context)
+    {
+        if(context.performed)
+        {
+            HandleAim?.Invoke();
+        }
+        if(context.canceled)
+        {
+            HandleShoot?.Invoke();
+        }
+    }
+
+    public void AimCancel(InputAction.CallbackContext context)
+    {
+        if(context.performed)
+        {
+            CancelAim?.Invoke();
         }
     }
 }
