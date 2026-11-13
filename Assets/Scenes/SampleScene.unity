@@ -900,6 +900,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 7098389285256826050, guid: fb070a2d31206d9499ecc8a77be0ebf0, type: 3}
     - target: {fileID: 7952460953945726285, guid: e3d03361a94a2cc0c91971822a63ac2d, type: 3}
+      propertyPath: boidSpawnChance
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 7952460953945726285, guid: e3d03361a94a2cc0c91971822a63ac2d, type: 3}
       propertyPath: pineStumpPrefab
       value: 
       objectReference: {fileID: 3125019525012259300, guid: c8b350551fbedc84c8025d7d29f3a018, type: 3}

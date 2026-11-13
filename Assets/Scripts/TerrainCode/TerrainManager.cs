@@ -25,6 +25,8 @@ public class TerrainManager : MonoBehaviour
     [SerializeField] private int maxDetails = 8;
     [SerializeField] private int detailRadius = 3;
     [SerializeField] private Dictionary<BiomesEnum, float[]> detailOdds = new Dictionary<BiomesEnum, float[]>();
+    [Range(0, 100)]
+    [SerializeField] private int boidSpawnChance = 5;
     private GameObject[] detailArray;
     // Odds ordered as grass -> flower -> shroom -> pine stump -> oak stump -> bush
 
@@ -207,6 +209,7 @@ public class TerrainManager : MonoBehaviour
         List<Vector3> detailSpawns = GetDetailPositions(vertices, v);
         
         HandleSpawnRules(biome, vertices[v], detailSpawns, plane);
+        TrySpawnBoid(plane, vertices[v].y);
     }
 
     private BiomesEnum GetPointBiome(Vector2Int point, Vector2Int biomeCell)
@@ -292,6 +295,15 @@ public class TerrainManager : MonoBehaviour
                     break;
                 }
             }
+        }
+    }
+
+    private void TrySpawnBoid(GameObject tile, float groundHeight)
+    {
+        int odds = UnityEngine.Random.Range(0, 100);
+        if(odds < boidSpawnChance)
+        {
+            BoidManager.instance.SpawnBoid(tile.transform.position + new Vector3(0, groundHeight + 2, 0));
         }
     }
 

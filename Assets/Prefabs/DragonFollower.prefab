@@ -96,6 +96,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: '::'
   detectionRadius: 7
+  obstacleAvoidanceRadius: 3
 --- !u!1001 &5159258325658669131
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -104,17 +105,21 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 7928977705229476957}
     m_Modifications:
+    - target: {fileID: 3487507998921592186, guid: bd2a5d3355e2b0a40a4dd2e06cf7a252, type: 3}
+      propertyPath: m_ConstrainProportionsScale
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 6306415673746978571, guid: bd2a5d3355e2b0a40a4dd2e06cf7a252, type: 3}
       propertyPath: m_LocalScale.x
-      value: 0.1
+      value: 0.15
       objectReference: {fileID: 0}
     - target: {fileID: 6306415673746978571, guid: bd2a5d3355e2b0a40a4dd2e06cf7a252, type: 3}
       propertyPath: m_LocalScale.y
-      value: 0.1
+      value: 0.15
       objectReference: {fileID: 0}
     - target: {fileID: 6306415673746978571, guid: bd2a5d3355e2b0a40a4dd2e06cf7a252, type: 3}
       propertyPath: m_LocalScale.z
-      value: 0.1
+      value: 0.15
       objectReference: {fileID: 0}
     - target: {fileID: 6306415673746978571, guid: bd2a5d3355e2b0a40a4dd2e06cf7a252, type: 3}
       propertyPath: m_LocalPosition.x

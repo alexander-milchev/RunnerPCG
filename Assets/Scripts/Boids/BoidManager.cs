@@ -42,7 +42,7 @@ public class BoidManager : MonoBehaviour
         SpawnBoid(new Vector3(22, 7, 22));
     }
 
-    private void SpawnBoid(Vector3 pos)
+    public void SpawnBoid(Vector3 pos)
     {
         Boid boid = Instantiate(boidPrefab, pos, Quaternion.identity, transform);
         SubscribeBoidEvents(boid);
