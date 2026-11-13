@@ -13,6 +13,7 @@ public class BoidManager : MonoBehaviour
 
     private RunningCharacterController player;
     private List<Boid> inScene = new List<Boid>();             // List of all possible Boids in the scene. By default just idling
+    private uint boidsFollowingPlayer = 0;
 
     public static BoidManager instance;
 
@@ -58,12 +59,21 @@ public class BoidManager : MonoBehaviour
     private void StartFollow(Boid boid)
     {
         if (!player) return;
-        // Maybe do something?
+        boidsFollowingPlayer++;
+        UIManager.instance.UpdateDragonsCount(boidsFollowingPlayer);
     }
 
     private void Separate(Boid boid)
     {
-        // Removes boid from flock for purposes of shooting it off somewhere
+        if (!player) return;
+        boidsFollowingPlayer--;
+        UIManager.instance.UpdateDragonsCount(boidsFollowingPlayer);
+    }
+
+    public void DespawnBoid(Boid boid)
+    {
+        inScene.Remove(boid);
+        Destroy(boid.gameObject);
     }
 
     private void CalculateBoidSteering(Boid boid)

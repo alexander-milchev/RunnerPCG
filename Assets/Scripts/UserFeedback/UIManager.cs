@@ -10,6 +10,7 @@ public class UIManager : MonoBehaviour
     [SerializeField] private TMP_Text speedCounter;
     [SerializeField] private GameObject comboObject;
     [SerializeField] private TMP_Text scoreCounter;
+    [SerializeField] private TMP_Text dragonCounter;
 
     private TMP_Text comboCounter;
     private Slider comboSlider;
@@ -129,6 +130,11 @@ public class UIManager : MonoBehaviour
         }
     }
 
+    public void UpdateDragonsCount(uint newCount)
+    {
+        dragonCounter.text = FormatDragonDisplay(newCount);
+    }
+
     private void LandingPopUp()
     {
         int i = Random.Range(0, 3);
@@ -185,5 +191,10 @@ public class UIManager : MonoBehaviour
     private string FormatScorePopup(uint score)
     {
         return "+" + score.ToString();
+    }
+
+    private string FormatDragonDisplay(uint num)
+    {
+        return "x" + num.ToString();
     }
 }

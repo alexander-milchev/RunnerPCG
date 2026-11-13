@@ -374,17 +374,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1826687664 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 6775032268098762784, guid: 57acbdaa20ddb27a3a3ad634f5f03ac7, type: 3}
-  m_PrefabInstance: {fileID: 7587399388194747496}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Unity.TextMeshPro::TMPro.TextMeshProUGUI
 --- !u!1001 &2200946443496551284
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -649,33 +638,9 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 2016439249863424806, guid: 3f1a73ef1dfb6aa058a4a300dce89fca, type: 3}
-      propertyPath: m_Mass
-      value: 0.4
-      objectReference: {fileID: 0}
-    - target: {fileID: 2159078871116412659, guid: 3f1a73ef1dfb6aa058a4a300dce89fca, type: 3}
-      propertyPath: jumpForce
-      value: 5
-      objectReference: {fileID: 0}
-    - target: {fileID: 2159078871116412659, guid: 3f1a73ef1dfb6aa058a4a300dce89fca, type: 3}
-      propertyPath: minimumSlope
-      value: 5
-      objectReference: {fileID: 0}
-    - target: {fileID: 2159078871116412659, guid: 3f1a73ef1dfb6aa058a4a300dce89fca, type: 3}
-      propertyPath: groundingForce
-      value: 2.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 2159078871116412659, guid: 3f1a73ef1dfb6aa058a4a300dce89fca, type: 3}
-      propertyPath: descendingForce
-      value: 35
-      objectReference: {fileID: 0}
     - target: {fileID: 2322583003878521017, guid: 3f1a73ef1dfb6aa058a4a300dce89fca, type: 3}
       propertyPath: m_Name
       value: CharacterHolder
-      objectReference: {fileID: 0}
-    - target: {fileID: 2324520465031189544, guid: 3f1a73ef1dfb6aa058a4a300dce89fca, type: 3}
-      propertyPath: far clip plane
-      value: 100
       objectReference: {fileID: 0}
     - target: {fileID: 2496274514195526704, guid: 3f1a73ef1dfb6aa058a4a300dce89fca, type: 3}
       propertyPath: m_LocalPosition.x
@@ -717,14 +682,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 2594770771834748680, guid: 3f1a73ef1dfb6aa058a4a300dce89fca, type: 3}
-      propertyPath: m_IncludeLayers.m_Bits
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 5815980159448236546, guid: 3f1a73ef1dfb6aa058a4a300dce89fca, type: 3}
-      propertyPath: bounce
-      value: 0.1
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -739,21 +696,9 @@ PrefabInstance:
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 4340631531642991557, guid: 57acbdaa20ddb27a3a3ad634f5f03ac7, type: 3}
-      propertyPath: scoreCounter
+      propertyPath: dragonCounter
       value: 
-      objectReference: {fileID: 1826687664}
-    - target: {fileID: 4340631531642991557, guid: 57acbdaa20ddb27a3a3ad634f5f03ac7, type: 3}
-      propertyPath: scorePopUpPrefab
-      value: 
-      objectReference: {fileID: 7455325376286149470, guid: 98183b38c3e9391488a04cb4e5020d39, type: 3}
-    - target: {fileID: 4340631531642991557, guid: 57acbdaa20ddb27a3a3ad634f5f03ac7, type: 3}
-      propertyPath: comboPopUpDisplayTime
-      value: 0.75
-      objectReference: {fileID: 0}
-    - target: {fileID: 4340631531642991557, guid: 57acbdaa20ddb27a3a3ad634f5f03ac7, type: 3}
-      propertyPath: scorePopUpDisplayTime
-      value: 2
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 7587399388194747497}
     - target: {fileID: 7417910315076034787, guid: 57acbdaa20ddb27a3a3ad634f5f03ac7, type: 3}
       propertyPath: m_LocalPosition.x
       value: 1300.5812
@@ -803,6 +748,17 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 57acbdaa20ddb27a3a3ad634f5f03ac7, type: 3}
+--- !u!114 &7587399388194747497 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 958381572970814321, guid: 57acbdaa20ddb27a3a3ad634f5f03ac7, type: 3}
+  m_PrefabInstance: {fileID: 7587399388194747496}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Unity.TextMeshPro::TMPro.TextMeshProUGUI
 --- !u!1001 &8202107123636398252
 PrefabInstance:
   m_ObjectHideFlags: 0
