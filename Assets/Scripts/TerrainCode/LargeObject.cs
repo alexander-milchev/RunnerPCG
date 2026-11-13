@@ -9,6 +9,23 @@ public class LargeObject : DestructibleObject
         base.OnCollisionEnter(collision);
     }
 
+    public override void HandlePlayerCollision(Collision collision)
+    {
+        Boid boid = BoidManager.instance.GetBoidFollowingPlayer();
+        if(boid != null)
+        {
+            BoidManager.instance.BoidSavePlayer(boid);
+            Explode(collision.transform);
+            Vector3 impulse = collision.impulse * -1;
+            collision.rigidbody.AddForce(impulse, ForceMode.Impulse);
+        }
+        else
+        {
+            // Player dies
+            Debug.Log("death");
+        }
+    }
+
     public override void Explode(Transform transform)
     {
         GameObject ragdoll = Instantiate(destroyedPrefab, transform.position, transform.rotation, transform.parent);

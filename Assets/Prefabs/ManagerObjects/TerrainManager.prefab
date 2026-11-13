@@ -44,10 +44,50 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 968a106cf6bd248a89e13972f26c8bcc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: '::'
-  terrainPrefab: {fileID: 8357313981969796704, guid: d86a23ce5499d45598e36598de105155, type: 3}
   planePrefab: {fileID: 5193073083741519893, guid: 894ef5ec92cf4d094b31d6f274e02518, type: 3}
+  oakPrefabs:
+  - {fileID: 5935278547815300987, guid: e05ae677c7b3bc546bd36b488586fb0c, type: 3}
+  - {fileID: 5361428799875542787, guid: c31bf8ec8e29cd74f9fb9a970fde7a53, type: 3}
+  - {fileID: 2479184009378418726, guid: b62637568d07eb141b948ab45ea8c3d4, type: 3}
+  - {fileID: 7296054959696050501, guid: 367ab66e2689a8345a8fb8fd14a4f90c, type: 3}
+  pinePrefab: {fileID: 6117071349010126079, guid: d250af4848f51154f9a2bf6a85b60ac2, type: 3}
+  grassPrefab: {fileID: 6739804228592001243, guid: 6cdd667aa0034cd4dadc8d58a65fb098, type: 3}
+  flowerPrefab: {fileID: 6444807355431749394, guid: f593bc20677ebf14abd27a4853408c68, type: 3}
+  shroomPrefab: {fileID: 5984911598340929997, guid: 5228c984e5be7284d8d83c18096254dd, type: 3}
+  pineStumpPrefab: {fileID: 3125019525012259300, guid: c8b350551fbedc84c8025d7d29f3a018, type: 3}
+  oakStumpPrefab: {fileID: 7098389285256826050, guid: fb070a2d31206d9499ecc8a77be0ebf0, type: 3}
+  bushPrefab: {fileID: 5153741093904279990, guid: ef8374d642969b14baa54045236c5fb0, type: 3}
   size: 10
   depth: 15
   scale: 20
-  heightVariability: 10
+  heightVariability: 15
   halfTileCount: 12
+  minDetails: 2
+  maxDetails: 8
+  detailRadius: 3
+  detailOdds:
+  - key: 0
+    value:
+    - 0.5
+    - 0.15
+    - 0.1
+    - 0
+    - 0.05
+    - 0.2
+  - key: 1
+    value:
+    - 0.6
+    - 0.35
+    - 0
+    - 0
+    - 0
+    - 0.05
+  - key: 2
+    value:
+    - 0.35
+    - 0.1
+    - 0.3
+    - 0.2
+    - 0
+    - 0.05
+  boidSpawnChance: 3

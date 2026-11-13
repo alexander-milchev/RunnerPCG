@@ -13,7 +13,7 @@ public class BoidManager : MonoBehaviour
 
     private RunningCharacterController player;
     private List<Boid> inScene = new List<Boid>();             // List of all possible Boids in the scene. By default just idling
-    private uint boidsFollowingPlayer = 0;
+    private List<Boid> followingPlayer = new List<Boid>();      // List of specifically Boids following player
 
     public static BoidManager instance;
 
@@ -59,21 +59,27 @@ public class BoidManager : MonoBehaviour
     private void StartFollow(Boid boid)
     {
         if (!player) return;
-        boidsFollowingPlayer++;
-        UIManager.instance.UpdateDragonsCount(boidsFollowingPlayer);
+        followingPlayer.Add(boid);
+        UIManager.instance.UpdateDragonsCount((uint)followingPlayer.Count);
     }
 
     private void Separate(Boid boid)
     {
         if (!player) return;
-        boidsFollowingPlayer--;
-        UIManager.instance.UpdateDragonsCount(boidsFollowingPlayer);
+        followingPlayer.Remove(boid);
+        UIManager.instance.UpdateDragonsCount((uint)followingPlayer.Count);
     }
 
     public void DespawnBoid(Boid boid)
     {
         inScene.Remove(boid);
         Destroy(boid.gameObject);
+    }
+
+    public void BoidSavePlayer(Boid boid)
+    {           // Guaranteed to be in scene and following player.
+        Separate(boid);
+        DespawnBoid(boid);
     }
 
     private void CalculateBoidSteering(Boid boid)
@@ -147,5 +153,11 @@ public class BoidManager : MonoBehaviour
     private Vector3 SepForce(Vector3 boidPos, Vector3 otherPos, float dist)
     {
         return (boidPos - otherPos).normalized / Mathf.Pow(dist, 3);
+    }
+
+    public Boid GetBoidFollowingPlayer()
+    {
+        if(followingPlayer.Count > 0) return followingPlayer[0];
+        else return null;
     }
 }
