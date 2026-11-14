@@ -1,11 +1,15 @@
 using System;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class ScoreManager : MonoBehaviour
 {
+    [SerializeField] private float scorePerSecondAirborne = 20f;
     private uint score = 0;
     private uint landingMult = 0;
     private uint destroyMult = 1;
+    private bool airborne = false;
+    private float accruedComboScore = 0f;
 
     private RunningCharacterController player;
 
@@ -34,31 +38,61 @@ public class ScoreManager : MonoBehaviour
         SubscribeEvents();
     }
 
+    private void FixedUpdate()
+    {
+        if(airborne)
+        {
+            accruedComboScore += Time.deltaTime * scorePerSecondAirborne * Mathf.Pow(1.2f, landingMult);
+            UIManager.instance.UpdateAccruedScoreDisplay((uint)Mathf.FloorToInt(accruedComboScore));
+        }
+    }
+
     private void SubscribeEvents()
     {
         player.goodLanding += IncrementCombo;
         player.comboInterrupt += ResetCombo;
+        player.comboTimerPause += AirborneCombo;
     }
 
     private void IncrementCombo(int consecutive, float _)
-    {
+    {       // Called on good landing
         landingMult = (uint)consecutive;
+        ResetAirborne();
     }
 
     private void ResetCombo()
     {
+        ResetAirborne();
         landingMult = 0;
         destroyMult = 1;
     }
 
+    private void ResetAirborne()
+    {
+        airborne = false;
+        if(accruedComboScore > 0) AddScoreNoMults((uint)Mathf.FloorToInt(accruedComboScore));
+        accruedComboScore = 0f;
+    }
+
+    private void AirborneCombo()
+    {
+        airborne = true;
+    }
+
     public void AddScore(uint added)
     {
-        score = (uint)(score + added * (destroyMult + landingMult));
+        added = (uint)(added * (destroyMult + landingMult));
+        AddScoreNoMults(added);
         scoreUpdated.Invoke(score);
         if(landingMult != 0)
         {
             destroyMult++;
         }
+    }
+
+    private void AddScoreNoMults(uint added)
+    {
+        score += added;
     }
 
     public uint GetScore()

@@ -13,8 +13,10 @@ public class RunningCharacterController : MonoBehaviour
     [SerializeField] private float boostForce = 8f;
     [Range(0f, 40f)] 
     [SerializeField] private float minimumSlope = 5f;
-    [SerializeField] private float landComboWindow = 3f;
-    [SerializeField] private float comboMultiplier = 1.5f;
+    [SerializeField] private float landComboInitialWindow = 5f;
+    [Range(0.5f, 1f)]
+    [SerializeField] private float landComboDecrease = 0.9f;
+    [SerializeField] private float comboMultiplier = 1.2f;
     [Header("Control vars")]
     [Range(0.1f, 1.0f)]
     [SerializeField] private float camHSensitivity = 0.5f;
@@ -33,7 +35,7 @@ public class RunningCharacterController : MonoBehaviour
     protected Transform model;
     protected Animator animator;
 
-    public event Action<int, float> goodLanding;                    // Combo Count, landComboWindow
+    public event Action<int, float> goodLanding;                    // Combo Count, landComboInitialWindow
     public event Action comboTimerPause;                            // Call on end of coyote time (we are airborne)
     public event Action comboInterrupt;                             // Fail combo prematurely for some reason
     public event Action jumpEvent;
@@ -267,7 +269,7 @@ public class RunningCharacterController : MonoBehaviour
             {
                 isGrounded = true;
             }
-            if(comboOngoing && Time.time > timeLastGoodLanded + landComboWindow)
+            if(comboOngoing && Time.time > timeLastGoodLanded + landComboInitialWindow * MathF.Pow(landComboDecrease, consectiveGoodLandings - 1))
             {               // if we are still grounded after the window elapses, interrupt combo
                 EndCombo();
             }
@@ -312,7 +314,7 @@ public class RunningCharacterController : MonoBehaviour
                 consectiveGoodLandings++;
                 timeLastGoodLanded = Time.time;
                 comboOngoing = true;
-                goodLanding?.Invoke(consectiveGoodLandings, landComboWindow);
+                goodLanding?.Invoke(consectiveGoodLandings, landComboInitialWindow * MathF.Pow(landComboDecrease, consectiveGoodLandings - 1));
                 return;
             }
         }

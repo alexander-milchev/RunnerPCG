@@ -10,6 +10,7 @@ public class VFXManager : MonoBehaviour
     private RunningCharacterController player;
     private Rigidbody rb;
     private Transform vFXSpawnPoint;
+    private float defaultTimeScale = 1f;
 
     public static VFXManager instance;
 
@@ -63,13 +64,18 @@ public class VFXManager : MonoBehaviour
 
     private IEnumerator LandTimeStop()
     {
-        Time.timeScale = 0.2f;
-        yield return new WaitForSeconds(0.1f);
-        Time.timeScale = 1f;
+        Time.timeScale = defaultTimeScale/5f;
+        yield return new WaitForSeconds(defaultTimeScale/10f);
+        Time.timeScale = defaultTimeScale;
     }
 
     public void SpawnDestroyParticles(Transform objectTransform)
     {
         ParticleSystem ps = Instantiate(destroyParticles, objectTransform.position, objectTransform.rotation);
+    }
+
+    public void SetDefaultTimeScale(float ts)
+    {
+        defaultTimeScale = ts;
     }
 }

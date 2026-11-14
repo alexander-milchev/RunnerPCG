@@ -11,9 +11,11 @@ public class UIManager : MonoBehaviour
     [SerializeField] private GameObject comboObject;
     [SerializeField] private TMP_Text scoreCounter;
     [SerializeField] private TMP_Text dragonCounter;
+    [SerializeField] private TMP_Text accruedScoreCounter;
 
     private TMP_Text comboCounter;
     private Slider comboSlider;
+    private TMP_Text comboDuration;
     private uint targetScore = 0;
     private uint displayedScore = 0;
 
@@ -55,7 +57,8 @@ public class UIManager : MonoBehaviour
         mainCanvas = GameObject.FindGameObjectWithTag("MainCanvas");
         rb = player.GetComponent<Rigidbody>();
         comboSlider = comboObject.GetComponentInChildren<Slider>(true);
-        comboCounter = comboObject.GetComponentInChildren<TMP_Text>(true);
+        comboCounter = transform.Find("UICanvas/ComboSlider/ComboCounter").GetComponent<TMP_Text>();
+        comboDuration = transform.Find("UICanvas/ComboSlider/DurationCounter").GetComponent<TMP_Text>();
         SubscribePlayerEvents();
         SubscribeScoreEvents();
     }
@@ -90,6 +93,7 @@ public class UIManager : MonoBehaviour
     private void OnGoodLanding(int comboCount, float comboWindow)
     {
         comboObject.SetActive(true);
+        accruedScoreCounter.gameObject.SetActive(false);
         comboCounter.text = FormatCombo(comboCount);
         comboSlider.maxValue = comboWindow;
         comboSlider.value = comboWindow;
@@ -101,11 +105,13 @@ public class UIManager : MonoBehaviour
     private void OnComboPause()
     {
         counterCountdown = false;
+        accruedScoreCounter.gameObject.SetActive(true);
     }
 
     private void OnComboInterrupt()
     {
         comboObject.SetActive(false);
+        accruedScoreCounter.gameObject.SetActive(false);
     }
 
     private void UpdateSpeed()
@@ -118,6 +124,7 @@ public class UIManager : MonoBehaviour
         if(comboObject.activeInHierarchy == true && counterCountdown)
         {
             comboSlider.value -= Time.fixedDeltaTime;
+            comboDuration.text = FormatComboDuration(comboSlider.value);
         }
     }
 
@@ -128,6 +135,11 @@ public class UIManager : MonoBehaviour
             displayedScore = (uint)Mathf.Clamp(displayedScore + Mathf.Ceil((targetScore - displayedScore) / 10f), 0, targetScore);
             scoreCounter.text = displayedScore.ToString();
         }
+    }
+
+    public void UpdateAccruedScoreDisplay(uint newVal)
+    {
+        accruedScoreCounter.text = FormatScorePopup(newVal);
     }
 
     public void UpdateDragonsCount(uint newCount)
@@ -196,5 +208,10 @@ public class UIManager : MonoBehaviour
     private string FormatDragonDisplay(uint num)
     {
         return "x" + num.ToString();
+    }
+
+    private string FormatComboDuration(float comboDuration)
+    {
+        return comboDuration.ToString("0.0") + "s";
     }
 }

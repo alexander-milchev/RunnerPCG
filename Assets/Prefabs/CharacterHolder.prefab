@@ -86,7 +86,7 @@ MonoBehaviour:
   boostForce: 8
   minimumSlope: 5
   landComboWindow: 3
-  comboMultiplier: 1.5
+  comboMultiplier: 1.2
   camHSensitivity: 0.5
   camVSensitivity: 0.5
   runThreshold: 5
