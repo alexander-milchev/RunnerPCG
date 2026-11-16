@@ -26,7 +26,7 @@ public abstract class DestructibleObject : MonoBehaviour
 
     public virtual void Explode(Transform transform)
     {
-        VFXManager.instance.SpawnDestroyParticles(transform);
+        VFXManager.instance.SpawnDestroyParticles(transform, 0.3f);
         ScoreManager.instance.AddScore(destroyScore);
         Destroy(this.gameObject);
     }

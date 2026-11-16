@@ -12,6 +12,7 @@ public class UIManager : MonoBehaviour
     [SerializeField] private TMP_Text scoreCounter;
     [SerializeField] private TMP_Text dragonCounter;
     [SerializeField] private TMP_Text accruedScoreCounter;
+    [SerializeField] private GameObject crosshair;
 
     private TMP_Text comboCounter;
     private Slider comboSlider;
@@ -187,6 +188,11 @@ public class UIManager : MonoBehaviour
             rb2d.AddForce(UnityEngine.Random.insideUnitCircle * 500, ForceMode2D.Impulse);
         }
         StartCoroutine(PopUpDestroyCoroutine(popUp, scorePopUpDisplayTime));
+    }
+
+    public void EnableCrosshair(bool b)
+    {
+        crosshair.SetActive(b);
     }
 
     private string FormatSpeed(float speed)

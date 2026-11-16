@@ -83,7 +83,6 @@ public class ScoreManager : MonoBehaviour
     {
         added = (uint)(added * (destroyMult + landingMult));
         AddScoreNoMults(added);
-        scoreUpdated.Invoke(score);
         if(landingMult != 0)
         {
             destroyMult++;
@@ -93,6 +92,7 @@ public class ScoreManager : MonoBehaviour
     private void AddScoreNoMults(uint added)
     {
         score += added;
+        scoreUpdated.Invoke(score);
     }
 
     public uint GetScore()

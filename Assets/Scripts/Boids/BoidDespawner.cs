@@ -7,7 +7,7 @@ public class BoidDespawner : MonoBehaviour
         Boid boid;
         if(other.TryGetComponent<Boid>(out boid))
         {
-            BoidManager.instance.DespawnBoid(boid);
+            BoidManager.instance.DespawnBoid(boid, false);
         }
     }
 }

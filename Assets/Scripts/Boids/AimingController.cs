@@ -2,12 +2,13 @@ using UnityEngine;
 
 public class AimingController : MonoBehaviour
 {
+    protected Camera camera;
     private bool isAiming = false;
     private float timeScale = 1f;
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
         SubscribeInputs();
+        camera = this.GetComponentInChildren<Camera>();
     }
 
     private void SubscribeInputs()
@@ -22,6 +23,7 @@ public class AimingController : MonoBehaviour
         isAiming = true;
         timeScale = 0.05f;
         VFXManager.instance.SetDefaultTimeScale(timeScale);
+        UIManager.instance.EnableCrosshair(true);
         Time.timeScale = timeScale;
     }
 
@@ -30,14 +32,29 @@ public class AimingController : MonoBehaviour
         isAiming = false;
         timeScale = 1f;
         VFXManager.instance.SetDefaultTimeScale(timeScale);
+        UIManager.instance.EnableCrosshair(false);
         Time.timeScale = timeScale;
     }
 
     private void Shoot()
     {
         if(!isAiming) return;
-        // get look direction and current position
-        // move a boid to position, then make it shoot in given direction.
+        Boid boid = BoidManager.instance.GetBoidFollowingPlayer();
+        if(boid != null)
+        {
+            Vector3 shootPos = transform.position;
+            Vector3 shootGoal = camera.transform.forward;
+            bool shootingAtPoint = false;
+            RaycastHit aimAt;
+            if(Physics.Raycast(transform.position, camera.transform.forward, out aimAt))
+            {
+                shootingAtPoint = true;
+                shootGoal = aimAt.point;
+            }
+            StartCoroutine(BoidManager.instance.ShootBoid(boid, shootPos, shootGoal, shootingAtPoint));    
+            if(shootingAtPoint) Debug.DrawRay(shootPos, shootGoal, Color.red, 200f);
+        }
+
         StopAim();
     }
 }

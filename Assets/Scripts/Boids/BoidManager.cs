@@ -1,5 +1,6 @@
 using UnityEngine;
 using System.Collections.Generic;
+using System.Collections;
 
 public class BoidManager : MonoBehaviour
 {
@@ -70,16 +71,17 @@ public class BoidManager : MonoBehaviour
         UIManager.instance.UpdateDragonsCount((uint)followingPlayer.Count);
     }
 
-    public void DespawnBoid(Boid boid)
+    public void DespawnBoid(Boid boid, bool playParticles)
     {
         inScene.Remove(boid);
+        if(playParticles) VFXManager.instance.SpawnDestroyParticles(boid.transform, 1.5f);
         Destroy(boid.gameObject);
     }
 
     public void BoidSavePlayer(Boid boid)
     {           // Guaranteed to be in scene and following player.
         Separate(boid);
-        DespawnBoid(boid);
+        DespawnBoid(boid, true);
     }
 
     private void CalculateBoidSteering(Boid boid)
@@ -159,5 +161,13 @@ public class BoidManager : MonoBehaviour
     {
         if(followingPlayer.Count > 0) return followingPlayer[0];
         else return null;
+    }
+
+    public IEnumerator ShootBoid(Boid boid, Vector3 pos, Vector3 goal, bool shootAt)
+    {
+        Separate(boid);
+        yield return null;
+        StartCoroutine(boid.ShootSelfFromTo(pos, goal, shootAt));
+        // move a boid to position, then make it shoot in given direction.
     }
 }

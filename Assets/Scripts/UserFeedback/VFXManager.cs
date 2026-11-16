@@ -69,9 +69,10 @@ public class VFXManager : MonoBehaviour
         Time.timeScale = defaultTimeScale;
     }
 
-    public void SpawnDestroyParticles(Transform objectTransform)
+    public void SpawnDestroyParticles(Transform objectTransform, float scale)
     {
         ParticleSystem ps = Instantiate(destroyParticles, objectTransform.position, objectTransform.rotation);
+        ps.transform.localScale = new Vector3(scale, scale, scale);
     }
 
     public void SetDefaultTimeScale(float ts)

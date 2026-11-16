@@ -1,5 +1,6 @@
 using UnityEngine;
 using System;
+using System.Collections;
 
 public class Boid : MonoBehaviour
 {
@@ -12,11 +13,14 @@ public class Boid : MonoBehaviour
 
     [SerializeField] private float detectionRadius = 10f;
     [SerializeField] private float obstacleAvoidanceRadius = 3f;
+    [SerializeField] private float shootingSpeed = 30f;
+    [SerializeField] private float explodeRadius = 5f;
 
     private Vector3 moveDirection = Vector3.zero;
-    private float distFromPlayer = 0f;
+    private float distFromGoal = 0f;
     private Vector3 steeringDirection = Vector3.zero;
     private Vector3 avoidanceForce = Vector3.zero;
+    private bool isBeingShot = false;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -32,7 +36,7 @@ public class Boid : MonoBehaviour
 
     void FixedUpdate()
     {
-        if(!player) return;
+        if(!player || isBeingShot) return;
         FollowPlayer();
         ObstacleAvoidance();
         askSteering?.Invoke(this);
@@ -41,8 +45,13 @@ public class Boid : MonoBehaviour
 
     private void FollowPlayer()
     {
-        moveDirection = Vector3.Normalize(player.transform.position - this.transform.position);
-        distFromPlayer = (player.transform.position - this.transform.position).magnitude;
+        FollowToPosition(player.transform.position);
+    }
+
+    private void FollowToPosition(Vector3 pos)
+    {
+        moveDirection = Vector3.Normalize(pos - this.transform.position);
+        distFromGoal = (pos - this.transform.position).magnitude;
     }
 
     private void ObstacleAvoidance()
@@ -70,14 +79,14 @@ public class Boid : MonoBehaviour
 
     private void ApplyForces()
     {
-        Vector3 finalForce = moveDirection * Mathf.Pow(distFromPlayer, 2) + steeringDirection;
+        Vector3 finalForce = moveDirection * Mathf.Pow(distFromGoal, 2) + steeringDirection;
         rb.AddForce(finalForce, ForceMode.Acceleration);
         rb.AddForce(avoidanceForce, ForceMode.Acceleration);
     }
 
     public void OnTriggerEnter(Collider col)
     {
-        if(player) return;
+        if(player || isBeingShot) return;
         if(col.gameObject.tag == "Player")
         {
             detectedPlayer?.Invoke(this);
@@ -93,5 +102,53 @@ public class Boid : MonoBehaviour
     public void SetSteering(Vector3 steer)
     {
         steeringDirection = steer;
+    }
+
+    public IEnumerator ShootSelfFromTo(Vector3 pos, Vector3 goal, bool shootAt)
+    {
+        float pVel = player.GetComponent<Rigidbody>().linearVelocity.magnitude;
+        player = null;
+        isBeingShot = true;
+        avoidanceForce = Vector3.zero;
+        steeringDirection = Vector3.zero;
+        yield return null;
+        while((transform.position - pos).magnitude < 0.1f)
+        {
+            FollowToPosition(pos);
+            ApplyForces();
+        }
+        rb.angularVelocity = Vector3.zero;
+        if(shootAt)
+        {       // if shootAt is true, we were given a destination Vector3 in goal
+            rb.linearVelocity = (goal - transform.position).normalized * (shootingSpeed + pVel);
+            Debug.Log("a");
+        }
+        else
+        {       // if shootAt is false, we were given a direction in goal (camera.forward)
+            rb.linearVelocity = goal * (shootingSpeed + pVel);
+            Debug.Log("b");
+        }
+        yield return null;
+    }
+
+    public void OnCollisionEnter(Collision collision)
+    {
+        if(!isBeingShot) return;
+
+        ExplodeAndDestroy();
+    }
+
+    private void ExplodeAndDestroy()
+    {
+        Collider[] cols = UnityEngine.Physics.OverlapSphere(transform.position, explodeRadius);
+        foreach(Collider col in cols)
+        {
+            DestructibleObject obj;
+            if(col.transform.TryGetComponent<DestructibleObject>(out obj))
+            {
+                obj.Explode(obj.transform);
+            }
+        }
+        BoidManager.instance.DespawnBoid(this, true);
     }
 }

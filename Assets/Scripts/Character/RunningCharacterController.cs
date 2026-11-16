@@ -1,6 +1,7 @@
 using UnityEngine;
 using System;
 using System.Collections;
+using UnityEngine.Rendering.Universal.Internal;
 
 public class RunningCharacterController : MonoBehaviour
 {
@@ -43,6 +44,7 @@ public class RunningCharacterController : MonoBehaviour
     private Vector2 movementInput = new Vector2(0, 0);              // Stores horizontal and fwd/back inputs.
     private Vector3 groundNormal = Vector3.up;
     private Vector3 intendedDirection = new Vector3(0, 0, 0);
+    private Vector3 lastLookDir = new Vector3(0, 0, 0);
     private bool isGrounded = false;
     private bool isDescending = false;
     private float currentVelocity = 0f;
@@ -144,10 +146,11 @@ public class RunningCharacterController : MonoBehaviour
     private void AlignVisuals()
     {
         // Face direction of User Input
-        Quaternion targetLookDir = Quaternion.FromToRotation(Vector3.forward, intendedDirection);
+        Quaternion targetLookDir = Quaternion.FromToRotation(Vector3.forward, lastLookDir);
+        
         // Lean to ground
         Quaternion targetLean = Quaternion.FromToRotation(Vector3.up, groundNormal);
-        float str = 2f * Time.deltaTime;
+        float str = 3f * Time.deltaTime;
 
         model.transform.rotation = Quaternion.Lerp (model.transform.rotation, targetLean * targetLookDir, str);
         // Multiplying 2 Quaternions is equivalent to addition of both rotations.
@@ -208,6 +211,7 @@ public class RunningCharacterController : MonoBehaviour
         forceRGHT.Normalize();
         Vector3 forceDirFinal = forceFWD * movementInput.y + forceRGHT * movementInput.x;       // Project movement inputs relative to camera rotation
         intendedDirection = forceDirFinal;
+        if(intendedDirection != new Vector3(0, 0, 0)) lastLookDir = intendedDirection;
 
         forceDirFinal = AdjustForceToSlope(forceDirFinal);
         rb.AddForce(forceDirFinal * accelerationForce, ForceMode.Acceleration);
