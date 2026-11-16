@@ -98,7 +98,7 @@ MonoBehaviour:
   detectionRadius: 7
   obstacleAvoidanceRadius: 3
   shootingSpeed: 50
-  explodeRadius: 5
+  explodeRadius: 8
 --- !u!1001 &613234700876651449
 PrefabInstance:
   m_ObjectHideFlags: 0

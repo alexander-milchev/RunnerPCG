@@ -74,7 +74,7 @@ public class BoidManager : MonoBehaviour
     public void DespawnBoid(Boid boid, bool playParticles)
     {
         inScene.Remove(boid);
-        if(playParticles) VFXManager.instance.SpawnDestroyParticles(boid.transform, 1.5f);
+        if(playParticles) VFXManager.instance.SpawnDestroyParticles(boid.transform, 2f);
         Destroy(boid.gameObject);
     }
 

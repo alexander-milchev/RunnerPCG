@@ -112,21 +112,16 @@ public class Boid : MonoBehaviour
         avoidanceForce = Vector3.zero;
         steeringDirection = Vector3.zero;
         yield return null;
-        while((transform.position - pos).magnitude < 0.1f)
-        {
-            FollowToPosition(pos);
-            ApplyForces();
-        }
+
         rb.angularVelocity = Vector3.zero;
+        gameObject.transform.position = pos;
         if(shootAt)
         {       // if shootAt is true, we were given a destination Vector3 in goal
             rb.linearVelocity = (goal - transform.position).normalized * (shootingSpeed + pVel);
-            Debug.Log("a");
         }
         else
         {       // if shootAt is false, we were given a direction in goal (camera.forward)
             rb.linearVelocity = goal * (shootingSpeed + pVel);
-            Debug.Log("b");
         }
         yield return null;
     }

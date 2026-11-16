@@ -51,8 +51,7 @@ public class AimingController : MonoBehaviour
                 shootingAtPoint = true;
                 shootGoal = aimAt.point;
             }
-            StartCoroutine(BoidManager.instance.ShootBoid(boid, shootPos, shootGoal, shootingAtPoint));    
-            if(shootingAtPoint) Debug.DrawRay(shootPos, shootGoal, Color.red, 200f);
+            StartCoroutine(BoidManager.instance.ShootBoid(boid, shootPos, shootGoal, shootingAtPoint));
         }
 
         StopAim();
