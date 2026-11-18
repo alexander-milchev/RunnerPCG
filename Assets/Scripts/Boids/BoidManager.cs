@@ -82,6 +82,7 @@ public class BoidManager : MonoBehaviour
     {           // Guaranteed to be in scene and following player.
         Separate(boid);
         DespawnBoid(boid, true);
+        player.GotSaved();
     }
 
     private void CalculateBoidSteering(Boid boid)
@@ -169,5 +170,10 @@ public class BoidManager : MonoBehaviour
         yield return null;
         StartCoroutine(boid.ShootSelfFromTo(pos, goal, shootAt));
         // move a boid to position, then make it shoot in given direction.
+    }
+
+    public bool GetIsPlayerInvuln()
+    {
+        return player.GetIsInvuln();
     }
 }

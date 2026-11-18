@@ -11,13 +11,16 @@ public class LargeObject : DestructibleObject
 
     public override void HandlePlayerCollision(Collision collision)
     {
+        if(BoidManager.instance.GetIsPlayerInvuln())
+        {
+            base.HandlePlayerCollision(collision);
+            return;
+        }
         Boid boid = BoidManager.instance.GetBoidFollowingPlayer();
         if(boid != null)
         {
             BoidManager.instance.BoidSavePlayer(boid);
-            Explode(collision.transform);
-            Vector3 impulse = collision.impulse * -1;
-            collision.rigidbody.AddForce(impulse, ForceMode.Impulse);
+            base.HandlePlayerCollision(collision);
         }
         else
         {

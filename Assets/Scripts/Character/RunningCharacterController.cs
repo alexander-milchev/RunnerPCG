@@ -18,6 +18,7 @@ public class RunningCharacterController : MonoBehaviour
     [Range(0.5f, 1f)]
     [SerializeField] private float landComboDecrease = 0.9f;
     [SerializeField] private float comboMultiplier = 1.2f;
+    [SerializeField] private float invulnDuration = 1.5f;
     [Header("Control vars")]
     [Range(0.1f, 1.0f)]
     [SerializeField] private float camHSensitivity = 0.5f;
@@ -40,6 +41,7 @@ public class RunningCharacterController : MonoBehaviour
     public event Action comboTimerPause;                            // Call on end of coyote time (we are airborne)
     public event Action comboInterrupt;                             // Fail combo prematurely for some reason
     public event Action jumpEvent;
+    public event Action<bool> toggleInvuln;                         // Called when becoming or stopping invuln;
 
     private Vector2 movementInput = new Vector2(0, 0);              // Stores horizontal and fwd/back inputs.
     private Vector3 groundNormal = Vector3.up;
@@ -54,6 +56,7 @@ public class RunningCharacterController : MonoBehaviour
     private bool comboOngoing = false;
     private bool jumped = false;
     private bool doubleJumped = false;
+    private bool isInvuln = false;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -362,5 +365,24 @@ public class RunningCharacterController : MonoBehaviour
     public Rigidbody GetRigidbody()
     {
         return rb;
+    }
+
+    public void GotSaved()
+    {
+        isInvuln = true;
+        toggleInvuln?.Invoke(isInvuln);
+        StartCoroutine(InvulnCoroutine());
+    }
+
+    private IEnumerator InvulnCoroutine()
+    {
+        yield return new WaitForSeconds(invulnDuration);
+        isInvuln = false;
+        toggleInvuln?.Invoke(isInvuln);
+    }
+
+    public bool GetIsInvuln()
+    {
+        return isInvuln;
     }
 }

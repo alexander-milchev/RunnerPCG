@@ -10,6 +10,7 @@ public class VFXManager : MonoBehaviour
     private RunningCharacterController player;
     private Rigidbody rb;
     private Transform vFXSpawnPoint;
+    private GameObject invulnShield;
     private float defaultTimeScale = 1f;
 
     public static VFXManager instance;
@@ -36,6 +37,7 @@ public class VFXManager : MonoBehaviour
         player = GameObject.FindWithTag("Player").GetComponent<RunningCharacterController>();
         rb = player.GetComponent<Rigidbody>();
         vFXSpawnPoint = player.transform.Find("VFXSpawnPoint");
+        invulnShield = player.transform.Find("ShieldSphere").gameObject;
 
         SubscribeVFXEvents();
     }
@@ -46,6 +48,7 @@ public class VFXManager : MonoBehaviour
         {
             player.goodLanding += SpawnBoostParticles;
             player.jumpEvent += SpawnJumpParticles;
+            player.toggleInvuln += ToggleInvulnParticles;
         }
     }
 
@@ -78,5 +81,10 @@ public class VFXManager : MonoBehaviour
     public void SetDefaultTimeScale(float ts)
     {
         defaultTimeScale = ts;
+    }
+
+    private void ToggleInvulnParticles(bool toggle)
+    {
+        invulnShield.SetActive(toggle);
     }
 }
