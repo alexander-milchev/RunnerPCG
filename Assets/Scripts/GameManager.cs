@@ -1,9 +1,12 @@
+using System;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
-    private int sceneID;        // 0 = Main menu, 1 = Game Scene
+    private uint highScore = 0;
+
+    public event Action<int> sceneChanged;
 
     public static GameManager instance;
 
@@ -24,12 +27,6 @@ public class GameManager : MonoBehaviour
         // Debug.Log("Done for " + this.name);
     }
 
-    void Start()
-    {
-        sceneID = SceneManager.GetActiveScene().buildIndex;
-        Debug.Log(SceneManager.sceneCount);
-    }
-
     // Update is called once per frame
     void Update()
     {
@@ -39,16 +36,30 @@ public class GameManager : MonoBehaviour
     public void StartGame()
     {
         ChangeToScene(1);
+        SceneManager.sceneLoaded += SceneLoadingFinished;
     }
 
     public void EndGame()
     {
+        if (highScore < ScoreManager.instance.GetScore())
+        {
+            highScore = ScoreManager.instance.GetScore();
+        }
         ChangeToScene(0);
     }
 
     private void ChangeToScene(int newID)
     {
-        sceneID = newID;
         SceneManager.LoadScene(newID);
+    }
+
+    private void SceneLoadingFinished(Scene scene, LoadSceneMode mode)
+    {
+        sceneChanged?.Invoke(scene.buildIndex);
+    }
+
+    public uint GetHighscore()
+    {
+        return highScore;
     }
 }

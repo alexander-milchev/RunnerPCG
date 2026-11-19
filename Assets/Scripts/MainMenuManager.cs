@@ -1,7 +1,9 @@
+using TMPro;
 using UnityEngine;
 
 public class MainMenuManager : MonoBehaviour
 {
+    [SerializeField] private TMP_Text HIGHSCORE_FIELD;
     [SerializeField] private GameObject MAIN_SCREEN;
     [SerializeField] private GameObject HOW_TO_PLAY;
     [SerializeField] private GameObject SETTINGS;
@@ -25,7 +27,12 @@ public class MainMenuManager : MonoBehaviour
 
     void Start()
     {
-        
+        UpdateHighestScore();
+    }
+
+    private void UpdateHighestScore()
+    {
+        HIGHSCORE_FIELD.text = FormatHighScore(GameManager.instance.GetHighscore());
     }
 
     // Update is called once per frame
@@ -63,4 +70,8 @@ public class MainMenuManager : MonoBehaviour
         Application.Quit();
     }
 
+    private string FormatHighScore(uint newScore)
+    {
+        return "Highest Score: " + newScore.ToString();
+    }
 }
