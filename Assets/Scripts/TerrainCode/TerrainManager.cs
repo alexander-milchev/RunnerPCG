@@ -55,7 +55,6 @@ public class TerrainManager : MonoBehaviour
     private void Awake()
     {
         Singleton();
-        DontDestroyOnLoad(gameObject);
     }
 
     private void Singleton()
@@ -66,7 +65,6 @@ public class TerrainManager : MonoBehaviour
             return;
         }
         instance = this;
-        // Debug.Log("Done for " + this.name);
     }
 
     void Start()

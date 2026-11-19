@@ -27,11 +27,28 @@ public class GameManager : MonoBehaviour
     void Start()
     {
         sceneID = SceneManager.GetActiveScene().buildIndex;
+        Debug.Log(SceneManager.sceneCount);
     }
 
     // Update is called once per frame
     void Update()
     {
         
+    }
+
+    public void StartGame()
+    {
+        ChangeToScene(1);
+    }
+
+    public void EndGame()
+    {
+        ChangeToScene(0);
+    }
+
+    private void ChangeToScene(int newID)
+    {
+        sceneID = newID;
+        SceneManager.LoadScene(newID);
     }
 }

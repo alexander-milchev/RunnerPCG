@@ -18,7 +18,6 @@ public class VFXManager : MonoBehaviour
     private void Awake()
     {
         Singleton();
-        DontDestroyOnLoad(gameObject);
     }
 
     private void Singleton()
@@ -29,7 +28,6 @@ public class VFXManager : MonoBehaviour
             return;
         }
         instance = this;
-        // Debug.Log("Done for " + this.name);
     }
 
     void Start()
@@ -50,6 +48,21 @@ public class VFXManager : MonoBehaviour
             player.jumpEvent += SpawnJumpParticles;
             player.toggleInvuln += ToggleInvulnParticles;
         }
+    }
+
+    private void UnsubscribeOnDestroy()
+    {
+        if(player != null)
+        {
+            player.goodLanding -= SpawnBoostParticles;
+            player.jumpEvent -= SpawnJumpParticles;
+            player.toggleInvuln -= ToggleInvulnParticles;
+        }
+    }
+
+    public void OnDestroy()
+    {
+        UnsubscribeOnDestroy();
     }
 
     private void SpawnBoostParticles(int comboCount, float comboWindow)

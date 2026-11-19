@@ -66,6 +66,7 @@ public class RunningCharacterController : MonoBehaviour
         camera = this.GetComponentInChildren<Camera>();
         model = this.transform.Find("RunnerCharacter");
         animator = model.gameObject.GetComponent<Animator>();
+        ScoreManager.instance.PrepareStartGame();
     }
 
     // Update is called once per frame
@@ -95,7 +96,7 @@ public class RunningCharacterController : MonoBehaviour
         //Debug.Log("Sub");
     }
 
-    public void OnDisable()
+    public void OnDestroy()
     {
         InputManager.instance.HandleRun -= UpdateMoveDir;
         InputManager.instance.HandleLook -= UpdateLookRotation;

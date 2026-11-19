@@ -19,7 +19,6 @@ public class InputManager : MonoBehaviour
     private void Awake()
     {
         Singleton();
-        DontDestroyOnLoad(gameObject);
     }
 
     private void Singleton()
@@ -30,7 +29,6 @@ public class InputManager : MonoBehaviour
             return;
         }
         instance = this;
-        // Debug.Log("Done for " + this.name);
     }
     
     // Start is called once before the first execution of Update after the MonoBehaviour is created
@@ -92,5 +90,11 @@ public class InputManager : MonoBehaviour
         {
             CancelAim?.Invoke();
         }
+    }
+
+    public void OnDestroy()
+    {
+        Cursor.lockState = CursorLockMode.None;
+        Cursor.visible = true;
     }
 }

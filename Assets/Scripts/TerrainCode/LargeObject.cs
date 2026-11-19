@@ -26,6 +26,7 @@ public class LargeObject : DestructibleObject
         {
             // Player dies
             Debug.Log("death");
+            GameManager.instance.EndGame();
         }
     }
 

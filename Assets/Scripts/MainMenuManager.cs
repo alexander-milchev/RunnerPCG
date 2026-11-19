@@ -11,7 +11,6 @@ public class MainMenuManager : MonoBehaviour
     private void Awake()
     {
         Singleton();
-        DontDestroyOnLoad(gameObject);
     }
 
     private void Singleton()
@@ -26,7 +25,7 @@ public class MainMenuManager : MonoBehaviour
 
     void Start()
     {
-        Debug.Log(PlayerPrefs.GetString("WASD.Up"));
+        
     }
 
     // Update is called once per frame
@@ -37,22 +36,26 @@ public class MainMenuManager : MonoBehaviour
 
     public void PlayGame()
     {
-        
+        GameManager.instance.StartGame();
     }
 
     public void HowToPlay()
     {
-        
+        MAIN_SCREEN.SetActive(false);
+        HOW_TO_PLAY.SetActive(true);
     }
 
     public void Settings()
     {
-        
+        MAIN_SCREEN.SetActive(false);
+        SETTINGS.SetActive(true);
     }
 
     public void Back()
     {
-        
+        MAIN_SCREEN.SetActive(true);
+        HOW_TO_PLAY.SetActive(false);
+        SETTINGS.SetActive(false);
     }
 
     public void Quit()

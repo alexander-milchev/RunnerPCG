@@ -34,7 +34,7 @@ public class ScoreManager : MonoBehaviour
 
     private void Start()
     {
-        PrepareStartGame();
+        
     }
 
     private void FixedUpdate()
@@ -48,6 +48,12 @@ public class ScoreManager : MonoBehaviour
 
     public void PrepareStartGame()
     {
+        score = 0;
+        landingMult = 0;
+        destroyMult = 1;
+        airborne = false;
+        accruedComboScore = 0f;
+        
         player = GameObject.FindWithTag("Player").GetComponent<RunningCharacterController>();
         SubscribeEvents();
     }
