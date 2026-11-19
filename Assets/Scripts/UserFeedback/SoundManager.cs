@@ -7,6 +7,7 @@ public class SoundManager : MonoBehaviour
     [SerializeField] private AudioClip IN_GAME_LOOP;
 
     private AudioSource audioSource;
+    private float preserveAudioVolume = 0.5f;
 
     public static SoundManager instance;
 
@@ -49,8 +50,8 @@ public class SoundManager : MonoBehaviour
         GetMusicSource();
         audioSource.clip = TITLE_MUSIC_LOOP;
         audioSource.loop = true;
+        audioSource.volume = preserveAudioVolume;
         audioSource.Play();
-        Debug.Log(audioSource.isPlaying);
     }
 
     private void StartGameMusic()
@@ -58,14 +59,13 @@ public class SoundManager : MonoBehaviour
         GetMusicSource();
         audioSource.clip = IN_GAME_LOOP;
         audioSource.loop = true;
+        audioSource.volume = preserveAudioVolume;
         audioSource.Play();
-        Debug.Log(audioSource.isPlaying);
     }
 
     private void GetMusicSource()
     {
         audioSource = GameObject.FindWithTag("MainCamera").GetComponentInChildren<AudioSource>();
-        Debug.Log(audioSource.name);
     }
 
     private void OnChangeScene(int newScene)
@@ -83,9 +83,14 @@ public class SoundManager : MonoBehaviour
         }
     }
 
-    // Update is called once per frame
-    void Update()
+    public void UpdateSoundLevel(float newLevel)
     {
-        
+        preserveAudioVolume = newLevel;
+        audioSource.volume = newLevel;
+    }
+
+    public float GetSoundLevel()
+    {
+        return preserveAudioVolume;
     }
 }

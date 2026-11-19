@@ -1,5 +1,7 @@
 using TMPro;
+using Unity.Animations.SpringBones.GameObjectExtensions;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class MainMenuManager : MonoBehaviour
 {
@@ -7,6 +9,7 @@ public class MainMenuManager : MonoBehaviour
     [SerializeField] private GameObject MAIN_SCREEN;
     [SerializeField] private GameObject HOW_TO_PLAY;
     [SerializeField] private GameObject SETTINGS;
+    private Slider soundSlider;
 
     public static MainMenuManager instance;
 
@@ -28,17 +31,13 @@ public class MainMenuManager : MonoBehaviour
     void Start()
     {
         UpdateHighestScore();
+        soundSlider = SETTINGS.FindChildByName("Sound").GetComponentInChildren<Slider>();
+        soundSlider.value = SoundManager.instance.GetSoundLevel();
     }
 
     private void UpdateHighestScore()
     {
         HIGHSCORE_FIELD.text = FormatHighScore(GameManager.instance.GetHighscore());
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
     }
 
     public void PlayGame()
@@ -68,6 +67,11 @@ public class MainMenuManager : MonoBehaviour
     public void Quit()
     {
         Application.Quit();
+    }
+
+    public void OnSoundChanged()
+    {
+        SoundManager.instance.UpdateSoundLevel(soundSlider.value);
     }
 
     private string FormatHighScore(uint newScore)
