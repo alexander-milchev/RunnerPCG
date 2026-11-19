@@ -3,11 +3,17 @@ using UnityEngine;
 
 public class SoundManager : MonoBehaviour
 {
+    [Header("Musics")]
     [SerializeField] private AudioClip TITLE_MUSIC_LOOP;
     [SerializeField] private AudioClip IN_GAME_LOOP;
+    [Header("SFX")]
+    [SerializeField] private AudioClip JUMP;
+    [SerializeField] private AudioClip GOOD_LAND;
+    [SerializeField] private AudioClip EXPLODE;
 
     private AudioSource audioSource;
-    private float preserveAudioVolume = 0.5f;
+    private float globalMusicVolume = 0.02f;
+    private float globalSFXVolume = 0.1f;
 
     public static SoundManager instance;
 
@@ -50,7 +56,7 @@ public class SoundManager : MonoBehaviour
         GetMusicSource();
         audioSource.clip = TITLE_MUSIC_LOOP;
         audioSource.loop = true;
-        audioSource.volume = preserveAudioVolume;
+        audioSource.volume = globalMusicVolume;
         audioSource.Play();
     }
 
@@ -59,7 +65,7 @@ public class SoundManager : MonoBehaviour
         GetMusicSource();
         audioSource.clip = IN_GAME_LOOP;
         audioSource.loop = true;
-        audioSource.volume = preserveAudioVolume;
+        audioSource.volume = globalMusicVolume;
         audioSource.Play();
     }
 
@@ -83,14 +89,39 @@ public class SoundManager : MonoBehaviour
         }
     }
 
-    public void UpdateSoundLevel(float newLevel)
+    public void SpawnJumpSFX(Vector3 loc)
     {
-        preserveAudioVolume = newLevel;
+        AudioSource.PlayClipAtPoint(JUMP, loc, globalSFXVolume);
+    }
+
+    public void SpawnLandSFX(Vector3 loc)
+    {
+        AudioSource.PlayClipAtPoint(GOOD_LAND, loc, globalSFXVolume*2);
+    }
+
+    public void SpawnExplodeSFX(Vector3 loc)
+    {
+        AudioSource.PlayClipAtPoint(EXPLODE, loc, globalSFXVolume);
+    }
+
+    public void UpdateMusicVolume(float newLevel)
+    {
+        globalMusicVolume = newLevel;
         audioSource.volume = newLevel;
     }
 
-    public float GetSoundLevel()
+    public void UpdateSFXVolume(float newLevel)
     {
-        return preserveAudioVolume;
+        globalSFXVolume = newLevel;
+    }
+
+    public float GetMusicVolume()
+    {
+        return globalMusicVolume;
+    }
+
+    public float GetSFXVolume()
+    {
+        return globalSFXVolume;
     }
 }

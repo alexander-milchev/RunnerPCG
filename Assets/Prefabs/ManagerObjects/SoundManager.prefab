@@ -46,3 +46,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: '::'
   TITLE_MUSIC_LOOP: {fileID: 8300000, guid: ddbc878d0fc9cb74b8aee819c45a02b5, type: 3}
   IN_GAME_LOOP: {fileID: 8300000, guid: c1a86b3e2f3380c47a33662676d9a0a7, type: 3}
+  JUMP: {fileID: 8300000, guid: 2c5292ba5cf254919a6b9e2b18e04f49, type: 3}
+  GOOD_LAND: {fileID: 8300000, guid: b99da9a57308d4ba1bee1cf1d9038376, type: 3}
+  EXPLODE: {fileID: 8300000, guid: 7bef0064f8567430cac22499c6b93d4f, type: 3}

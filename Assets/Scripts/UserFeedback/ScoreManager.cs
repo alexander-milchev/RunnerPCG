@@ -53,7 +53,7 @@ public class ScoreManager : MonoBehaviour
         destroyMult = 1;
         airborne = false;
         accruedComboScore = 0f;
-        
+
         player = GameObject.FindWithTag("Player").GetComponent<RunningCharacterController>();
         SubscribeEvents();
     }
@@ -103,7 +103,7 @@ public class ScoreManager : MonoBehaviour
     private void AddScoreNoMults(uint added)
     {
         score += added;
-        scoreUpdated.Invoke(score);
+        scoreUpdated?.Invoke(score);
     }
 
     public uint GetScore()

@@ -9,7 +9,8 @@ public class MainMenuManager : MonoBehaviour
     [SerializeField] private GameObject MAIN_SCREEN;
     [SerializeField] private GameObject HOW_TO_PLAY;
     [SerializeField] private GameObject SETTINGS;
-    private Slider soundSlider;
+    private Slider musicSlider;
+    private Slider sfxSlider;
 
     public static MainMenuManager instance;
 
@@ -31,8 +32,10 @@ public class MainMenuManager : MonoBehaviour
     void Start()
     {
         UpdateHighestScore();
-        soundSlider = SETTINGS.FindChildByName("Sound").GetComponentInChildren<Slider>();
-        soundSlider.value = SoundManager.instance.GetSoundLevel();
+        musicSlider = SETTINGS.FindChildByName("Music").GetComponentInChildren<Slider>();
+        sfxSlider = SETTINGS.FindChildByName("SFX").GetComponentInChildren<Slider>();
+        musicSlider.value = SoundManager.instance.GetMusicVolume();
+        sfxSlider.value = SoundManager.instance.GetSFXVolume();
     }
 
     private void UpdateHighestScore()
@@ -69,9 +72,14 @@ public class MainMenuManager : MonoBehaviour
         Application.Quit();
     }
 
-    public void OnSoundChanged()
+    public void OnMusicVolumeChanged()
     {
-        SoundManager.instance.UpdateSoundLevel(soundSlider.value);
+        SoundManager.instance.UpdateMusicVolume(musicSlider.value);
+    }
+
+    public void OnSFXVolumeChanged()
+    {
+        SoundManager.instance.UpdateSFXVolume(sfxSlider.value);
     }
 
     private string FormatHighScore(uint newScore)
