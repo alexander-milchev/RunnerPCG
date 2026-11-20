@@ -13,6 +13,7 @@ public class UIManager : MonoBehaviour
     [SerializeField] private TMP_Text dragonCounter;
     [SerializeField] private TMP_Text accruedScoreCounter;
     [SerializeField] private GameObject crosshair;
+    [SerializeField] private GameObject deathScreen;
 
     private TMP_Text comboCounter;
     private Slider comboSlider;
@@ -131,6 +132,7 @@ public class UIManager : MonoBehaviour
 
     private void UpdateSpeed()
     {
+        if(!rb) return;
         speedCounter.text = FormatSpeed(rb.linearVelocity.magnitude);
     }
 
@@ -207,6 +209,11 @@ public class UIManager : MonoBehaviour
     public void EnableCrosshair(bool b)
     {
         crosshair.SetActive(b);
+    }
+
+    public void EnableDeathScreen(bool b)
+    {
+        deathScreen.SetActive(b);
     }
 
     private string FormatSpeed(float speed)

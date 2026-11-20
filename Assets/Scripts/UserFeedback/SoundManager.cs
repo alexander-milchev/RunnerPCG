@@ -11,7 +11,7 @@ public class SoundManager : MonoBehaviour
     [SerializeField] private AudioClip GOOD_LAND;
     [SerializeField] private AudioClip EXPLODE;
 
-    private AudioSource audioSource;
+    private AudioSource musicSource;
     private float globalMusicVolume = 0.02f;
     private float globalSFXVolume = 0.1f;
 
@@ -54,24 +54,24 @@ public class SoundManager : MonoBehaviour
     private void StartTitleMusic()
     {
         GetMusicSource();
-        audioSource.clip = TITLE_MUSIC_LOOP;
-        audioSource.loop = true;
-        audioSource.volume = globalMusicVolume;
-        audioSource.Play();
+        musicSource.clip = TITLE_MUSIC_LOOP;
+        musicSource.loop = true;
+        musicSource.volume = globalMusicVolume;
+        musicSource.Play();
     }
 
     private void StartGameMusic()
     {
         GetMusicSource();
-        audioSource.clip = IN_GAME_LOOP;
-        audioSource.loop = true;
-        audioSource.volume = globalMusicVolume;
-        audioSource.Play();
+        musicSource.clip = IN_GAME_LOOP;
+        musicSource.loop = true;
+        musicSource.volume = globalMusicVolume;
+        musicSource.Play();
     }
 
     private void GetMusicSource()
     {
-        audioSource = GameObject.FindWithTag("MainCamera").GetComponentInChildren<AudioSource>();
+        musicSource = GameObject.FindWithTag("MainCamera").GetComponentInChildren<AudioSource>();
     }
 
     private void OnChangeScene(int newScene)
@@ -107,7 +107,8 @@ public class SoundManager : MonoBehaviour
     public void UpdateMusicVolume(float newLevel)
     {
         globalMusicVolume = newLevel;
-        audioSource.volume = newLevel;
+        if(musicSource == null) return;
+        musicSource.volume = newLevel;
     }
 
     public void UpdateSFXVolume(float newLevel)

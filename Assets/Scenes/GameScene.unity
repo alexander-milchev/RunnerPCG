@@ -817,28 +817,8 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 259669751481516832, guid: 57acbdaa20ddb27a3a3ad634f5f03ac7, type: 3}
-      propertyPath: m_AnchorMax.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 259669751481516832, guid: 57acbdaa20ddb27a3a3ad634f5f03ac7, type: 3}
-      propertyPath: m_AnchorMax.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4340631531642991557, guid: 57acbdaa20ddb27a3a3ad634f5f03ac7, type: 3}
-      propertyPath: dragonCounter
-      value: 
-      objectReference: {fileID: 7587399388194747497}
-    - target: {fileID: 5556408020614120569, guid: 57acbdaa20ddb27a3a3ad634f5f03ac7, type: 3}
-      propertyPath: m_AnchorMax.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5556408020614120569, guid: 57acbdaa20ddb27a3a3ad634f5f03ac7, type: 3}
-      propertyPath: m_AnchorMax.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5556408020614120569, guid: 57acbdaa20ddb27a3a3ad634f5f03ac7, type: 3}
-      propertyPath: m_AnchorMin.x
+    - target: {fileID: 1846779681099146770, guid: 57acbdaa20ddb27a3a3ad634f5f03ac7, type: 3}
+      propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7417910315076034787, guid: 57acbdaa20ddb27a3a3ad634f5f03ac7, type: 3}
@@ -890,17 +870,6 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 57acbdaa20ddb27a3a3ad634f5f03ac7, type: 3}
---- !u!114 &7587399388194747497 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 958381572970814321, guid: 57acbdaa20ddb27a3a3ad634f5f03ac7, type: 3}
-  m_PrefabInstance: {fileID: 7587399388194747496}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Unity.TextMeshPro::TMPro.TextMeshProUGUI
 --- !u!1001 &8202107123636398252
 PrefabInstance:
   m_ObjectHideFlags: 0

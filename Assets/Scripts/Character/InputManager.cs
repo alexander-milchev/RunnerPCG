@@ -34,26 +34,41 @@ public class InputManager : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        player = GameObject.FindWithTag("Player").GetComponent<RunningCharacterController>();
-        player.SubscribeInputs();
+        SubscribePlayerInputs();
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
     }
 
+    public void SubscribePlayerInputs()
+    {
+        player = GameObject.FindWithTag("Player").GetComponent<RunningCharacterController>();
+        player.SubscribeInputs();
+        player.onDeath += OnPlayerDestroyed;
+    }
+
+    public void OnPlayerDestroyed()
+    {
+        player.onDeath -= OnPlayerDestroyed;
+        player = null;
+    }
+
     public void OnMove(InputAction.CallbackContext context)
     {
+        if(!player) return;
         var value = context.ReadValue<Vector2>();
         HandleRun?.Invoke(value);
     }
 
     public void OnLook(InputAction.CallbackContext context)
     {
+        if(!player) return;
         var value = context.ReadValue<Vector2>();
         HandleLook?.Invoke(value);
     }
 
     public void OnDescend(InputAction.CallbackContext context)
     {
+        if(!player) return;
         if(context.performed)
         {
             HandleDescend?.Invoke(true);
@@ -66,6 +81,7 @@ public class InputManager : MonoBehaviour
 
     public void OnJump(InputAction.CallbackContext context)
     {
+        if(!player) return;
         if(context.performed)
         {
             HandleJump?.Invoke();
@@ -74,6 +90,7 @@ public class InputManager : MonoBehaviour
 
     public void OnAim(InputAction.CallbackContext context)
     {
+        if(!player) return;
         if(context.performed)
         {
             HandleAim?.Invoke();
@@ -86,6 +103,7 @@ public class InputManager : MonoBehaviour
 
     public void AimCancel(InputAction.CallbackContext context)
     {
+        if(!player) return;
         if(context.performed)
         {
             CancelAim?.Invoke();

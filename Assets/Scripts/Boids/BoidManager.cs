@@ -85,6 +85,7 @@ public class BoidManager : MonoBehaviour
 
     public void BoidSavePlayer(Boid boid)
     {           // Guaranteed to be in scene and following player.
+        if(!player) return;
         Separate(boid);
         DespawnBoid(boid, true);
         player.GotSaved();
@@ -179,6 +180,7 @@ public class BoidManager : MonoBehaviour
 
     public bool GetIsPlayerInvuln()
     {
+        if(!player) return false;
         return player.GetIsInvuln();
     }
 }

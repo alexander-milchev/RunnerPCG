@@ -42,6 +42,7 @@ public class RunningCharacterController : MonoBehaviour
     public event Action comboInterrupt;                             // Fail combo prematurely for some reason
     public event Action jumpEvent;
     public event Action<bool> toggleInvuln;                         // Called when becoming or stopping invuln;
+    public event Action onDeath;                                    // Called when player dies
 
     private Vector2 movementInput = new Vector2(0, 0);              // Stores horizontal and fwd/back inputs.
     private Vector3 groundNormal = Vector3.up;
@@ -385,5 +386,13 @@ public class RunningCharacterController : MonoBehaviour
     public bool GetIsInvuln()
     {
         return isInvuln;
+    }
+
+    public void Explode()
+    {
+        onDeath?.Invoke();
+        camera.transform.SetParent(null);
+        VFXManager.instance.SpawnDestroyParticles(transform, 0.3f);
+        Destroy(this.gameObject);
     }
 }

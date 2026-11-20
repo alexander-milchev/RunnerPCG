@@ -87,6 +87,7 @@ public class TerrainManager : MonoBehaviour
 
     void FixedUpdate()
     {
+        if(!player) return;
         // Get the x, z of Player in Tiles for Perlin
         Vector2Int currentPlayerTile = new Vector2Int(
         Mathf.RoundToInt(player.transform.position.x / size),

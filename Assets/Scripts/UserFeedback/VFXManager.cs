@@ -9,7 +9,6 @@ public class VFXManager : MonoBehaviour
     [SerializeField] private ParticleSystem destroyParticles;
 
     private RunningCharacterController player;
-    private Rigidbody rb;
     private Transform vFXSpawnPoint;
     private GameObject invulnShield;
     private float defaultTimeScale = 1f;
@@ -38,7 +37,6 @@ public class VFXManager : MonoBehaviour
     void Start()
     {
         player = GameObject.FindWithTag("Player").GetComponent<RunningCharacterController>();
-        rb = player.GetComponent<Rigidbody>();
         vFXSpawnPoint = player.transform.Find("VFXSpawnPoint");
         invulnShield = player.transform.Find("ShieldSphere").gameObject;
 
@@ -53,6 +51,7 @@ public class VFXManager : MonoBehaviour
             player.goodLanding += SpawnBoostParticles;
             player.jumpEvent += SpawnJumpParticles;
             player.toggleInvuln += ToggleInvulnParticles;
+            player.onDeath += UnsubscribePlayerDestroyed;
         }
     }
 
@@ -63,15 +62,16 @@ public class VFXManager : MonoBehaviour
         goodLandVFXSpawned += SoundManager.instance.SpawnLandSFX;
     }
 
+    private void UnsubscribePlayerDestroyed()
+    {
+        player.goodLanding -= SpawnBoostParticles;
+        player.jumpEvent -= SpawnJumpParticles;
+        player.toggleInvuln -= ToggleInvulnParticles;
+        player.onDeath -= UnsubscribePlayerDestroyed;
+    }
+
     private void UnsubscribeOnDestroy()
     {
-        if(player != null)
-        {
-            player.goodLanding -= SpawnBoostParticles;
-            player.jumpEvent -= SpawnJumpParticles;
-            player.toggleInvuln -= ToggleInvulnParticles;
-        }
-
         jumpVFXSpawned -= SoundManager.instance.SpawnJumpSFX;
         explodeVFXSpawned -= SoundManager.instance.SpawnExplodeSFX;
         goodLandVFXSpawned -= SoundManager.instance.SpawnLandSFX;
