@@ -34,8 +34,7 @@ public class ScoreManager : MonoBehaviour
 
     private void Start()
     {
-        player = GameObject.FindWithTag("Player").GetComponent<RunningCharacterController>();
-        SubscribeEvents();
+        
     }
 
     private void FixedUpdate()
@@ -45,6 +44,18 @@ public class ScoreManager : MonoBehaviour
             accruedComboScore += Time.deltaTime * scorePerSecondAirborne * Mathf.Pow(1.2f, landingMult);
             UIManager.instance.UpdateAccruedScoreDisplay((uint)Mathf.FloorToInt(accruedComboScore));
         }
+    }
+
+    public void PrepareStartGame()
+    {
+        score = 0;
+        landingMult = 0;
+        destroyMult = 1;
+        airborne = false;
+        accruedComboScore = 0f;
+
+        player = GameObject.FindWithTag("Player").GetComponent<RunningCharacterController>();
+        SubscribeEvents();
     }
 
     private void SubscribeEvents()
@@ -92,7 +103,7 @@ public class ScoreManager : MonoBehaviour
     private void AddScoreNoMults(uint added)
     {
         score += added;
-        scoreUpdated.Invoke(score);
+        scoreUpdated?.Invoke(score);
     }
 
     public uint GetScore()

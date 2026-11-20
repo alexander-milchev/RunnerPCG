@@ -13,6 +13,7 @@ public class UIManager : MonoBehaviour
     [SerializeField] private TMP_Text dragonCounter;
     [SerializeField] private TMP_Text accruedScoreCounter;
     [SerializeField] private GameObject crosshair;
+    [SerializeField] private GameObject deathScreen;
 
     private TMP_Text comboCounter;
     private Slider comboSlider;
@@ -37,7 +38,6 @@ public class UIManager : MonoBehaviour
     private void Awake()
     {
         Singleton();
-        DontDestroyOnLoad(gameObject);
     }
 
     private void Singleton()
@@ -48,7 +48,6 @@ public class UIManager : MonoBehaviour
             return;
         }
         instance = this;
-        // Debug.Log("Done for " + this.name);
     }
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
@@ -77,6 +76,22 @@ public class UIManager : MonoBehaviour
     private void SubscribeScoreEvents()
     {
         ScoreManager.instance.scoreUpdated += UpdateCurrentScore;
+    }
+
+    private void UnsubscribeOnDestroy()
+    {
+        if(player != null)
+        {
+            player.goodLanding -= OnGoodLanding;
+            player.comboTimerPause -= OnComboPause;
+            player.comboInterrupt -= OnComboInterrupt;
+        }
+        ScoreManager.instance.scoreUpdated -= UpdateCurrentScore;
+    }
+
+    public void OnDestroy()
+    {
+        UnsubscribeOnDestroy();
     }
 
     // Update is called once per frame
@@ -117,6 +132,7 @@ public class UIManager : MonoBehaviour
 
     private void UpdateSpeed()
     {
+        if(!rb) return;
         speedCounter.text = FormatSpeed(rb.linearVelocity.magnitude);
     }
 
@@ -193,6 +209,11 @@ public class UIManager : MonoBehaviour
     public void EnableCrosshair(bool b)
     {
         crosshair.SetActive(b);
+    }
+
+    public void EnableDeathScreen(bool b)
+    {
+        deathScreen.SetActive(b);
     }
 
     private string FormatSpeed(float speed)

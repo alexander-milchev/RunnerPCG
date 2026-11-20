@@ -1,5 +1,6 @@
 using UnityEngine;
 using System.Collections;
+using System;
 
 public class VFXManager : MonoBehaviour
 {
@@ -8,17 +9,19 @@ public class VFXManager : MonoBehaviour
     [SerializeField] private ParticleSystem destroyParticles;
 
     private RunningCharacterController player;
-    private Rigidbody rb;
     private Transform vFXSpawnPoint;
     private GameObject invulnShield;
     private float defaultTimeScale = 1f;
+
+    public event Action<Vector3> goodLandVFXSpawned;
+    public event Action<Vector3> explodeVFXSpawned;
+    public event Action<Vector3> jumpVFXSpawned;
 
     public static VFXManager instance;
 
     private void Awake()
     {
         Singleton();
-        DontDestroyOnLoad(gameObject);
     }
 
     private void Singleton()
@@ -29,17 +32,16 @@ public class VFXManager : MonoBehaviour
             return;
         }
         instance = this;
-        // Debug.Log("Done for " + this.name);
     }
 
     void Start()
     {
         player = GameObject.FindWithTag("Player").GetComponent<RunningCharacterController>();
-        rb = player.GetComponent<Rigidbody>();
         vFXSpawnPoint = player.transform.Find("VFXSpawnPoint");
         invulnShield = player.transform.Find("ShieldSphere").gameObject;
 
         SubscribeVFXEvents();
+        SubscribeSoundManager();
     }
 
     private void SubscribeVFXEvents()
@@ -49,12 +51,41 @@ public class VFXManager : MonoBehaviour
             player.goodLanding += SpawnBoostParticles;
             player.jumpEvent += SpawnJumpParticles;
             player.toggleInvuln += ToggleInvulnParticles;
+            player.onDeath += UnsubscribePlayerDestroyed;
         }
+    }
+
+    private void SubscribeSoundManager()
+    {
+        jumpVFXSpawned += SoundManager.instance.SpawnJumpSFX;
+        explodeVFXSpawned += SoundManager.instance.SpawnExplodeSFX;
+        goodLandVFXSpawned += SoundManager.instance.SpawnLandSFX;
+    }
+
+    private void UnsubscribePlayerDestroyed()
+    {
+        player.goodLanding -= SpawnBoostParticles;
+        player.jumpEvent -= SpawnJumpParticles;
+        player.toggleInvuln -= ToggleInvulnParticles;
+        player.onDeath -= UnsubscribePlayerDestroyed;
+    }
+
+    private void UnsubscribeOnDestroy()
+    {
+        jumpVFXSpawned -= SoundManager.instance.SpawnJumpSFX;
+        explodeVFXSpawned -= SoundManager.instance.SpawnExplodeSFX;
+        goodLandVFXSpawned -= SoundManager.instance.SpawnLandSFX;
+    }
+
+    public void OnDestroy()
+    {
+        UnsubscribeOnDestroy();
     }
 
     private void SpawnBoostParticles(int comboCount, float comboWindow)
     {
         ParticleSystem ps = Instantiate(boostParticles, vFXSpawnPoint.position, vFXSpawnPoint.rotation);
+        goodLandVFXSpawned?.Invoke(vFXSpawnPoint.position);
         StartCoroutine(LandTimeStop());
     }
 
@@ -63,6 +94,7 @@ public class VFXManager : MonoBehaviour
         ParticleSystem ps = Instantiate(jumpParticles, vFXSpawnPoint.position, vFXSpawnPoint.rotation);
         Quaternion rot = Quaternion.FromToRotation(Vector3.up, Vector3.forward);
         ps.transform.rotation = ps.transform.rotation * rot;
+        jumpVFXSpawned?.Invoke(vFXSpawnPoint.position);
     }
 
     private IEnumerator LandTimeStop()
@@ -76,6 +108,7 @@ public class VFXManager : MonoBehaviour
     {
         ParticleSystem ps = Instantiate(destroyParticles, objectTransform.position, objectTransform.rotation);
         ps.transform.localScale = new Vector3(scale, scale, scale);
+        explodeVFXSpawned?.Invoke(objectTransform.position);
     }
 
     public void SetDefaultTimeScale(float ts)

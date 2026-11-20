@@ -55,7 +55,6 @@ public class TerrainManager : MonoBehaviour
     private void Awake()
     {
         Singleton();
-        DontDestroyOnLoad(gameObject);
     }
 
     private void Singleton()
@@ -66,7 +65,6 @@ public class TerrainManager : MonoBehaviour
             return;
         }
         instance = this;
-        // Debug.Log("Done for " + this.name);
     }
 
     void Start()
@@ -89,6 +87,7 @@ public class TerrainManager : MonoBehaviour
 
     void FixedUpdate()
     {
+        if(!player) return;
         // Get the x, z of Player in Tiles for Perlin
         Vector2Int currentPlayerTile = new Vector2Int(
         Mathf.RoundToInt(player.transform.position.x / size),

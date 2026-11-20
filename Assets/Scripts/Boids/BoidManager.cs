@@ -21,7 +21,6 @@ public class BoidManager : MonoBehaviour
     private void Awake()
     {
         Singleton();
-        DontDestroyOnLoad(gameObject);
     }
 
     private void Singleton()
@@ -32,7 +31,6 @@ public class BoidManager : MonoBehaviour
             return;
         }
         instance = this;
-        // Debug.Log("Done for " + this.name);
     }
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
@@ -57,6 +55,12 @@ public class BoidManager : MonoBehaviour
         boid.askSteering += CalculateBoidSteering;
     }
 
+    private void UnsubscribeBoidEvents(Boid boid)
+    {
+        boid.detectedPlayer -= StartFollow;
+        boid.askSteering -= CalculateBoidSteering;
+    }
+
     private void StartFollow(Boid boid)
     {
         if (!player) return;
@@ -75,11 +79,13 @@ public class BoidManager : MonoBehaviour
     {
         inScene.Remove(boid);
         if(playParticles) VFXManager.instance.SpawnDestroyParticles(boid.transform, 2f);
+        UnsubscribeBoidEvents(boid);
         Destroy(boid.gameObject);
     }
 
     public void BoidSavePlayer(Boid boid)
     {           // Guaranteed to be in scene and following player.
+        if(!player) return;
         Separate(boid);
         DespawnBoid(boid, true);
         player.GotSaved();
@@ -174,6 +180,7 @@ public class BoidManager : MonoBehaviour
 
     public bool GetIsPlayerInvuln()
     {
+        if(!player) return false;
         return player.GetIsInvuln();
     }
 }
